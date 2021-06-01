@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9d11373c1f574ba8ba68052f903485c5" Name="Diagram1">
+        <EntityTypeShape EntityType="IzvozB_sModel.Authorization" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IzvozB_sModel.DailyEntry" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IzvozB_sModel.Date" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IzvozB_sModel.Exporter" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IzvozB_sModel.Prediction" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IzvozB_sModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="IzvozB_sModel.FK_Exporter_Authorization" ManuallyRouted="false" />
+        <AssociationConnector Association="IzvozB_sModel.FK_Daily_Exporter" ManuallyRouted="false" />
+        <AssociationConnector Association="IzvozB_sModel.FK_Prediction_DateP" ManuallyRouted="false" />
+        <AssociationConnector Association="IzvozB_sModel.FK_Prediction_Exporter" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

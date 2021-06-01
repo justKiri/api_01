@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IzvozB_sModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Authorization">
+    <Key>
+      <PropertyRef Name="AuthorizationID" />
+    </Key>
+    <Property Name="AuthorizationID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="DailyEntry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpID" Type="int" Nullable="false" />
+    <Property Name="Ok" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Date">
+    <Key>
+      <PropertyRef Name="DateID" />
+    </Key>
+    <Property Name="DateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="EndDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exporter">
+    <Key>
+      <PropertyRef Name="ExpID" />
+    </Key>
+    <Property Name="ExpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AuthorizationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prediction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpID" Type="int" Nullable="false" />
+    <Property Name="DateID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Daily_Exporter">
+    <End Role="Exporter" Type="Self.Exporter" Multiplicity="1" />
+    <End Role="DailyEntry" Type="Self.DailyEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exporter">
+        <PropertyRef Name="ExpID" />
+      </Principal>
+      <Dependent Role="DailyEntry">
+        <PropertyRef Name="ExpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exporter_Authorization">
+    <End Role="Authorization" Type="Self.Authorization" Multiplicity="1" />
+    <End Role="Exporter" Type="Self.Exporter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Authorization">
+        <PropertyRef Name="AuthorizationID" />
+      </Principal>
+      <Dependent Role="Exporter">
+        <PropertyRef Name="AuthorizationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prediction_DateP">
+    <End Role="Date" Type="Self.Date" Multiplicity="1" />
+    <End Role="Prediction" Type="Self.Prediction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Date">
+        <PropertyRef Name="DateID" />
+      </Principal>
+      <Dependent Role="Prediction">
+        <PropertyRef Name="DateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prediction_Exporter">
+    <End Role="Exporter" Type="Self.Exporter" Multiplicity="1" />
+    <End Role="Prediction" Type="Self.Prediction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exporter">
+        <PropertyRef Name="ExpID" />
+      </Principal>
+      <Dependent Role="Prediction">
+        <PropertyRef Name="ExpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="IzvozB_sModelStoreContainer">
+    <EntitySet Name="Authorization" EntityType="Self.Authorization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DailyEntry" EntityType="Self.DailyEntry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Date" EntityType="Self.Date" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exporter" EntityType="Self.Exporter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prediction" EntityType="Self.Prediction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Daily_Exporter" Association="Self.FK_Daily_Exporter">
+      <End Role="Exporter" EntitySet="Exporter" />
+      <End Role="DailyEntry" EntitySet="DailyEntry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exporter_Authorization" Association="Self.FK_Exporter_Authorization">
+      <End Role="Authorization" EntitySet="Authorization" />
+      <End Role="Exporter" EntitySet="Exporter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prediction_DateP" Association="Self.FK_Prediction_DateP">
+      <End Role="Date" EntitySet="Date" />
+      <End Role="Prediction" EntitySet="Prediction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prediction_Exporter" Association="Self.FK_Prediction_Exporter">
+      <End Role="Exporter" EntitySet="Exporter" />
+      <End Role="Prediction" EntitySet="Prediction" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
